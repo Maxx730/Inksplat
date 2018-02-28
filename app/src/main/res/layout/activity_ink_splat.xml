@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.ContentFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kinghorn.inksplat.inksplat.InkSplatActivity">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/paint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/graph_background"
+                android:gravity="center_horizontal"
+                android:padding="20dp">
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/swatch_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimaryDark"
+                    android:fadingEdgeLength="50dp"
+                    android:requiresFadingEdge="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/swatch_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="18dp">
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha="1"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="#FFFFFF">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/redshade1">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/redshade2">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/redshade3">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginRight="16dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/purpshade1">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/purpshade2">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/purpshade3">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/blueshade1">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/blueshade2">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/blueshade3">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/greenshade1">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/greenshade2">
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginRight="15dp"
+                            android:alpha=".3"
+                            android:background="@drawable/ink_drop"
+                            android:backgroundTint="@color/greenshade3">
+
+                        </RelativeLayout>
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2.8"
+                    android:background="@color/colorPrimary"
+                    android:orientation="horizontal"
+                    android:paddingLeft="12dp"
+                    android:paddingTop="10dp">
+
+                    <ImageButton
+                        android:id="@+id/imageButton4"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="3dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/tool_ui_btn"
+                        app:srcCompat="@drawable/icon_plus" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton3"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginTop="3dp"
+                        android:background="@drawable/tool_ui_btn"
+                        app:srcCompat="@drawable/icon_minus" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/option_frame"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:background="@color/colorPrimary"
+                android:orientation="horizontal"
+                android:padding="10dp">
+
+                <ImageButton
+                    android:id="@+id/paintbrush_back"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="@drawable/tool_ui_btn"
+                    app:srcCompat="@drawable/icon_left" />
+
+                <ImageButton
+                    android:id="@+id/paintbrush_forward"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/tool_ui_btn"
+                    app:srcCompat="@drawable/icon_right" />
+
+                <ImageButton
+                    android:id="@+id/cancel_paint"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/tool_ui_btn"
+                    app:srcCompat="@drawable/icon_cancel" />
+
+                <ImageButton
+                    android:id="@+id/paint_done"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/tool_ui_btn"
+                    app:srcCompat="@drawable/icon_check" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </FrameLayout>
+</android.support.v7.widget.ContentFrameLayout>
