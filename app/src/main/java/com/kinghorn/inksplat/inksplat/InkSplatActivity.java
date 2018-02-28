@@ -27,7 +27,6 @@ public class InkSplatActivity extends AppCompatActivity {
     private Uri chosenImage,outputImage;
     private Intent intent;
     private InkCanvas canvas;
-    private ArrayList<InkPath> paths;
     private float size = 15f;
 
     @Override
@@ -37,8 +36,6 @@ public class InkSplatActivity extends AppCompatActivity {
 
         //Grab the intent information from activity this was started from.
         intent = getIntent();
-
-        paths = new ArrayList<InkPath>();
 
         //Initialize the color object.
         color = new Paint();
@@ -83,8 +80,14 @@ public class InkSplatActivity extends AppCompatActivity {
     public class InkPath extends Path{
         private Paint p;
 
-        public void setPaint(Paint p){
-            this.p = p;
+        public InkPath(int color){
+            p = new Paint();
+            p.setColor(color);
+            p.setStyle(Paint.Style.STROKE);
+            p.setAntiAlias(true);
+            p.setStrokeCap(Paint.Cap.ROUND);
+            p.setStrokeWidth(size);
+            p.setStrokeJoin(Paint.Join.ROUND);
         }
 
         public Paint getPaint(){
@@ -95,10 +98,13 @@ public class InkSplatActivity extends AppCompatActivity {
     //Canvas that we will use to draw the image onto.
     public class InkCanvas extends View{
 
-        private InkPath p = new InkPath();
+        private InkPath p = new InkPath(Color.BLACK);
+        private ArrayList<InkPath> paths;
 
         public InkCanvas(Context c){
             super(c);
+
+            paths = new ArrayList<InkPath>();
         }
 
         @Override
@@ -116,13 +122,16 @@ public class InkSplatActivity extends AppCompatActivity {
         public boolean onTouchEvent(MotionEvent event) {
             switch(event.getAction()){
                 case MotionEvent.ACTION_DOWN:
-                    p.setPaint(color);
                     p.moveTo(event.getX(),event.getY());
                     break;
                 case MotionEvent.ACTION_UP:
                     p.moveTo(event.getX(),event.getY());
-                    paths.add(p);
 
+                    InkPath newPath = new InkPath(color.getColor());
+                    newPath.set(p);
+                    paths.add(newPath);
+
+                    p.reset();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     p.lineTo(event.getX(),event.getY());
