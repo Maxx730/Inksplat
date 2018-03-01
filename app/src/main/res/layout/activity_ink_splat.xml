@@ -189,39 +189,39 @@
                     </LinearLayout>
                 </HorizontalScrollView>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="2.8"
                     android:background="@color/colorPrimary"
                     android:orientation="horizontal"
-                    android:paddingLeft="12dp"
+                    android:paddingLeft="10dp"
                     android:paddingTop="10dp">
 
                     <ImageButton
-                        android:id="@+id/imageButton4"
+                        android:id="@+id/brush_size_up"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="3dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="50dp"
                         android:background="@drawable/tool_ui_btn"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/icon_plus" />
 
                     <ImageButton
-                        android:id="@+id/imageButton3"
+                        android:id="@+id/brush_size_down"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_marginTop="3dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="10dp"
                         android:background="@drawable/tool_ui_btn"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/icon_minus" />
-                </LinearLayout>
+                </RelativeLayout>
 
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/option_frame"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -229,6 +229,18 @@
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal"
                 android:padding="10dp">
+
+                <SeekBar
+                    android:id="@+id/brush_seekbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginRight="85dp"
+                    android:padding="15dp"
+                    android:paddingVertical="15dp"
+                    android:progressDrawable="@drawable/inksplat_seekbar"
+                    android:scrollIndicators="top"
+                    android:thumb="@drawable/scroll_knob" />
 
                 <ImageButton
                     android:id="@+id/paintbrush_back"
@@ -241,7 +253,9 @@
                     android:id="@+id/paintbrush_forward"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="10dp"
+                    android:layout_toEndOf="@+id/paintbrush_back"
                     android:background="@drawable/tool_ui_btn"
                     app:srcCompat="@drawable/icon_right" />
 
@@ -249,7 +263,9 @@
                     android:id="@+id/cancel_paint"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="40dp"
                     android:background="@drawable/tool_ui_btn"
                     app:srcCompat="@drawable/icon_cancel" />
 
@@ -257,11 +273,12 @@
                     android:id="@+id/paint_done"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/tool_ui_btn"
                     app:srcCompat="@drawable/icon_check" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
     </FrameLayout>
