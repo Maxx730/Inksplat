@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.RectF;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -29,12 +31,13 @@ import java.util.HashMap;
 
 public class InkSplatActivity extends AppCompatActivity {
 
-    private Paint color;
+    private Paint color,size_indicator;
     private Bitmap chosenImage,outputImage;
     private ImageButton brush_up,brush_down;
     private Intent intent;
     private InkCanvas canvas;
     private float size = 15f;
+    private SeekBar brush_size_seeker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,14 @@ public class InkSplatActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        //Initialize the brush size indication paint.
+        size_indicator = new Paint();
+        size_indicator.setColor(Color.BLACK);
+        size_indicator.setStyle(Paint.Style.STROKE);
+        size_indicator.setAntiAlias(true);
+        size_indicator.setStrokeWidth(10);
+
 
         //Initialize the color object.
         color = new Paint();
@@ -151,6 +162,9 @@ public class InkSplatActivity extends AppCompatActivity {
             }
 
             canvas.drawPath(p,color);
+
+            //Draw the brush size indicator over everything else.
+            canvas.drawOval(new RectF((getWidth() - size) / 2,(getHeight() - size) / 2,((getWidth() - 100) / 2) + size,((getHeight() - 100) / 2) + size),size_indicator);
         }
 
         @Override
