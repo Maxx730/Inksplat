@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -33,10 +34,10 @@ public class InkSplatActivity extends AppCompatActivity {
 
     private Paint color,size_indicator;
     private Bitmap chosenImage,outputImage;
-    private ImageButton brush_up,brush_down;
+    private ImageButton brush_up,brush_down,check_btn,can_btn,stroke_back;
     private Intent intent;
     private InkCanvas canvas;
-    private float size = 15f;
+    private float size = 5f;
     private SeekBar brush_size_seeker;
 
     @Override
@@ -79,6 +80,7 @@ public class InkSplatActivity extends AppCompatActivity {
 
         ImplementColorSwatches();
         ImplementBrushSizing();
+        ImplementClickEvents();
     }
 
     //Sets the click events for sizing the brush up and down.
@@ -112,6 +114,46 @@ public class InkSplatActivity extends AppCompatActivity {
         }
     }
 
+    //Initializes the click events for all our buttons.
+    private void ImplementClickEvents(){
+        brush_size_seeker = (SeekBar) findViewById(R.id.brush_seekbar);
+        stroke_back = (ImageButton) findViewById(R.id.paintbrush_back);
+
+        stroke_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(canvas.paths.size() == 1){
+                    stroke_back.setClickable(false);
+                    stroke_back.setAlpha(.5f);
+                }
+
+                if(canvas.paths.size() > 0){
+                    canvas.paths.remove(canvas.paths.size() - 1);
+                    canvas.invalidate();
+                }
+            }
+        });
+
+        brush_size_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                size = brush_size_seeker.getProgress();
+                color.setStrokeWidth(brush_size_seeker.getProgress());
+                canvas.invalidate();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+    }
+
     public class InkPath extends Path{
         private Paint p;
 
@@ -140,6 +182,8 @@ public class InkSplatActivity extends AppCompatActivity {
             super(c);
 
             paths = new ArrayList<InkPath>();
+
+            setDrawingCacheEnabled(true);
         }
 
         @Override
@@ -148,13 +192,8 @@ public class InkSplatActivity extends AppCompatActivity {
 
             //Draw the chosen image onto the canvas.
             if(chosenImage != null){
-                //Center and scale up the chosen image.
-                float scaledWidth = (float) getWidth() / (float) chosenImage.getWidth();
-                Matrix m = new Matrix();
-                m.setScale(scaledWidth,scaledWidth);
-                Bitmap scaled = Bitmap.createBitmap(chosenImage,0,0,chosenImage.getWidth(),chosenImage.getHeight(),m,true);
 
-                canvas.drawBitmap(scaled,(getWidth() - scaled.getWidth()) / 2,(getHeight() - scaled.getHeight()) / 2,null);
+                canvas.drawBitmap(GetScaledImage(),(getWidth() - GetScaledImage().getWidth()) / 2,(getHeight() - GetScaledImage().getHeight()) / 2,null);
             }
 
             for(InkPath path:paths){
@@ -164,7 +203,16 @@ public class InkSplatActivity extends AppCompatActivity {
             canvas.drawPath(p,color);
 
             //Draw the brush size indicator over everything else.
-            canvas.drawOval(new RectF((getWidth() - size) / 2,(getHeight() - size) / 2,((getWidth() - 100) / 2) + size,((getHeight() - 100) / 2) + size),size_indicator);
+            //canvas.drawOval(new RectF((getWidth() - size) / 2,(getHeight() - size) / 2,((getWidth() - 100) / 2) + size,((getHeight() - 100) / 2) + size),size_indicator);
+        }
+
+        private Bitmap GetScaledImage(){
+            //Center and scale up the chosen image.
+            float scaledWidth = (float) getWidth() / (float) chosenImage.getWidth();
+            Matrix m = new Matrix();
+            m.setScale(scaledWidth,scaledWidth);
+            Bitmap scaled = Bitmap.createBitmap(chosenImage,0,0,chosenImage.getWidth(),chosenImage.getHeight(),m,true);
+            return scaled;
         }
 
         @Override
@@ -180,6 +228,11 @@ public class InkSplatActivity extends AppCompatActivity {
                     newPath.set(p);
                     paths.add(newPath);
 
+                    if(paths.size() == 1){
+                        stroke_back.setClickable(true);
+                        stroke_back.setAlpha(1f);
+                    }
+
                     p.reset();
                     break;
                 case MotionEvent.ACTION_MOVE:
@@ -188,6 +241,12 @@ public class InkSplatActivity extends AppCompatActivity {
             }
             invalidate();
             return true;
+        }
+
+        //So when the painting has finished, we want to get the size of the painted image and crop the drawing cache to that size after applying the paint
+        //to the image.
+        public Bitmap CropPaintedImage(){
+            return Bitmap.createBitmap(getDrawingCache(),(getWidth() - GetScaledImage().getWidth()) / 2,(getHeight() - GetScaledImage().getHeight()) / 2,((getWidth() - GetScaledImage().getWidth()) / 2) + GetScaledImage().getWidth(),((getHeight() - GetScaledImage().getHeight()) / 2)+GetScaledImage().getHeight());
         }
     }
 

@@ -20,9 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="2"
-                android:background="@drawable/graph_background"
-                android:gravity="center_horizontal"
-                android:padding="20dp">
+                android:background="@android:color/black"
+                android:gravity="center_horizontal">
 
             </RelativeLayout>
 
@@ -48,144 +47,30 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
                         android:paddingLeft="15dp"
-                        android:paddingTop="18dp">
+                        android:paddingTop="12dp">
 
                         <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_marginRight="15dp"
                             android:alpha="1"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="#FFFFFF">
+                            android:background="@drawable/selected_inkdrop"
+                            android:foreground="@drawable/ink_drop"
+                            android:foregroundTint="@android:color/background_light">
 
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/redshade1">
+                            android:alpha="1"
+                            android:background="@drawable/selected_inkdrop"
+                            android:foreground="@drawable/ink_drop"
+                            android:foregroundTint="@android:color/holo_green_dark">
 
                         </RelativeLayout>
 
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/redshade2">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/redshade3">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginEnd="16dp"
-                            android:layout_marginRight="16dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/purpshade1">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/purpshade2">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/purpshade3">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/blueshade1">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/blueshade2">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/blueshade3">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/greenshade1">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/greenshade2">
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginRight="15dp"
-                            android:alpha=".3"
-                            android:background="@drawable/ink_drop"
-                            android:backgroundTint="@color/greenshade3">
-
-                        </RelativeLayout>
                     </LinearLayout>
                 </HorizontalScrollView>
 
@@ -195,8 +80,28 @@
                     android:layout_weight="2.8"
                     android:background="@color/colorPrimary"
                     android:orientation="horizontal"
-                    android:paddingLeft="10dp"
+                    android:paddingRight="15dp"
                     android:paddingTop="10dp">
+
+                    <ImageButton
+                        android:id="@+id/paint_done"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentBottom="false"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/tool_ui_btn"
+                        app:srcCompat="@drawable/icon_check" />
+
+                    <ImageButton
+                        android:id="@+id/cancel_paint"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginRight="40dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/tool_ui_btn"
+                        app:srcCompat="@drawable/icon_cancel" />
 
                     <ImageButton
                         android:id="@+id/brush_size_up"
@@ -230,24 +135,44 @@
                 android:orientation="horizontal"
                 android:padding="10dp">
 
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    app:srcCompat="@drawable/paint_size_icon" />
+
                 <SeekBar
                     android:id="@+id/brush_seekbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="75dp"
-                    android:layout_marginRight="85dp"
-                    android:padding="15dp"
-                    android:paddingVertical="15dp"
+                    android:layout_marginLeft="115dp"
+                    android:layout_marginRight="30dp"
+                    android:max="100"
+                    android:min="5"
+                    android:padding="12dp"
+                    android:paddingVertical="5dp"
+                    android:progress="25"
                     android:progressDrawable="@drawable/inksplat_seekbar"
                     android:scrollIndicators="top"
                     android:thumb="@drawable/scroll_knob" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="85dp"
+                    android:padding="10dp"
+                    app:srcCompat="@drawable/paint_size_icon" />
 
                 <ImageButton
                     android:id="@+id/paintbrush_back"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
+                    android:alpha=".5"
                     android:background="@drawable/tool_ui_btn"
-                    app:srcCompat="@drawable/icon_left" />
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/icon_rotate_back" />
 
                 <ImageButton
                     android:id="@+id/paintbrush_forward"
@@ -257,26 +182,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_toEndOf="@+id/paintbrush_back"
                     android:background="@drawable/tool_ui_btn"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/icon_right" />
-
-                <ImageButton
-                    android:id="@+id/cancel_paint"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="40dp"
-                    android:background="@drawable/tool_ui_btn"
-                    app:srcCompat="@drawable/icon_cancel" />
-
-                <ImageButton
-                    android:id="@+id/paint_done"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginLeft="10dp"
-                    android:background="@drawable/tool_ui_btn"
-                    app:srcCompat="@drawable/icon_check" />
 
             </RelativeLayout>
 
