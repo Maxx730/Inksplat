@@ -278,7 +278,7 @@
                     android:layout_marginRight="40dp"
                     android:max="100"
                     android:min="5"
-                    android:padding="16dp"
+                    android:padding="22dp"
                     android:paddingVertical="5dp"
                     android:progress="25"
                     android:progressDrawable="@drawable/inksplat_seekbar"
