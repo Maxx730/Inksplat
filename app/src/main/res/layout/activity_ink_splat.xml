@@ -16,20 +16,45 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/paint_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:background="@android:color/black"
-                android:gravity="center_horizontal">
+                android:layout_weight="4">
+
+                <RelativeLayout
+                    android:id="@+id/paint_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:background="@android:color/black"
+                    android:gravity="center_horizontal">
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/check_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:color/black"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <ImageButton
+                        android:id="@+id/paint_done"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/tool_ui_btn"
+                        android:backgroundTint="@android:color/holo_green_light"
+                        app:srcCompat="@drawable/icon_check" />
+                </LinearLayout>
 
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/swatch_layout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
+                android:layout_height="55dp"
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
@@ -38,7 +63,7 @@
                     android:layout_height="match_parent"
                     android:layout_above="@+id/paintbrush_forward"
                     android:layout_alignStart="@+id/paintbrush_forward"
-                    android:layout_weight="1"
+                    android:layout_weight="2"
                     android:background="@color/colorPrimaryDark">
 
                     <LinearLayout
@@ -63,7 +88,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/redshade1">
 
@@ -73,7 +98,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/redshade2">
 
@@ -83,7 +108,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/redshade3">
 
@@ -97,7 +122,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_marginEnd="16dp"
                             android:layout_marginRight="16dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/purpshade1">
 
@@ -107,7 +132,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/purpshade2">
 
@@ -117,7 +142,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/purpshade3">
 
@@ -127,7 +152,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/blueshade1">
 
@@ -137,7 +162,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/blueshade2">
 
@@ -147,7 +172,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/blueshade3">
 
@@ -157,7 +182,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/greenshade1">
 
@@ -167,7 +192,7 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/greenshade2">
 
@@ -180,7 +205,7 @@
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
                             android:layout_marginRight="15dp"
-                            android:alpha=".3"
+                            android:alpha=".2"
                             android:background="@drawable/ink_drop"
                             android:backgroundTint="@color/greenshade3">
 
@@ -193,16 +218,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="2.8"
                     android:background="@color/colorPrimary"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/paint_done"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/tool_ui_btn"
-                        android:backgroundTint="@android:color/holo_green_light"
-                        app:srcCompat="@drawable/icon_check" />
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageButton
                         android:id="@+id/cancel_paint"
@@ -211,6 +228,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/tool_ui_btn"
                         android:backgroundTint="@android:color/holo_red_light"
+                        android:visibility="gone"
                         app:srcCompat="@drawable/icon_cancel" />
 
                     <ImageButton
@@ -239,8 +257,7 @@
             <RelativeLayout
                 android:id="@+id/option_frame"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="10"
+                android:layout_height="55dp"
                 android:background="@color/colorPrimary"
                 android:orientation="horizontal">
 
@@ -249,18 +266,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:padding="4dp"
+                    android:layout_marginLeft="5dp"
+                    android:padding="15dp"
                     app:srcCompat="@drawable/paint_size_icon" />
 
                 <SeekBar
                     android:id="@+id/brush_seekbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="115dp"
-                    android:layout_marginRight="30dp"
+                    android:layout_marginLeft="92dp"
+                    android:layout_marginRight="40dp"
                     android:max="100"
                     android:min="5"
-                    android:padding="8dp"
+                    android:padding="16dp"
                     android:paddingVertical="5dp"
                     android:progress="25"
                     android:progressDrawable="@drawable/inksplat_seekbar"

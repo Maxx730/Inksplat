@@ -26,7 +26,7 @@ public class TestActivity extends AppCompatActivity {
 
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == 1){
-                new InkSplatActivity.InksplatBuilder(getApplicationContext(), data.getData(),Uri.fromFile(new File("/sdcard/sample.jpg")),InkSplatActivity.class).start();
+                new InkSplatActivity.InksplatBuilder(getApplicationContext(), data.getData(),Uri.fromFile(new File("/sdcard/sample.jpg"))).start();
             }
         }
     }

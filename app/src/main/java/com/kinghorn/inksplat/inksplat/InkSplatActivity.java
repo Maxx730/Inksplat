@@ -21,7 +21,10 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -39,6 +42,8 @@ public class InkSplatActivity extends AppCompatActivity {
     private InkCanvas canvas;
     private float size = 5f;
     private SeekBar brush_size_seeker;
+    private Animation slide_up,slide_down;
+    private LinearLayout check_forward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +108,7 @@ public class InkSplatActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     //Here we want to grab the color of the swatch, make all the swatches transparent and make this particular one not.
                     for(int k = 0;k < swatchList.getChildCount();k++){
-                        swatchList.getChildAt(k).setAlpha(.3f);
+                        swatchList.getChildAt(k).setAlpha(.2f);
                     }
 
                     color.setColor(v.getBackgroundTintList().getDefaultColor());
@@ -118,6 +123,9 @@ public class InkSplatActivity extends AppCompatActivity {
     private void ImplementClickEvents(){
         brush_size_seeker = (SeekBar) findViewById(R.id.brush_seekbar);
         stroke_back = (ImageButton) findViewById(R.id.paintbrush_back);
+        check_forward = (LinearLayout) findViewById(R.id.check_slider);
+        slide_up = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_up);
+        slide_down = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_down);
 
         stroke_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +133,8 @@ public class InkSplatActivity extends AppCompatActivity {
                 if(canvas.paths.size() == 1){
                     stroke_back.setClickable(false);
                     stroke_back.setAlpha(.5f);
+                    check_forward.startAnimation(slide_down);
+                    check_forward.setVisibility(View.GONE);
                 }
 
                 if(canvas.paths.size() > 0){
@@ -231,6 +241,8 @@ public class InkSplatActivity extends AppCompatActivity {
                     if(paths.size() == 1){
                         stroke_back.setClickable(true);
                         stroke_back.setAlpha(1f);
+                        check_forward.startAnimation(slide_up);
+                        check_forward.setVisibility(View.VISIBLE);
                     }
 
                     p.reset();
@@ -256,8 +268,8 @@ public class InkSplatActivity extends AppCompatActivity {
         private Context ctx;
         private Class<?> ac_class;
 
-        public InksplatBuilder(Context ctx,Uri InkStartImg,Uri InkTargetImg,Class<?> clas){
-            super(ctx,clas);
+        public InksplatBuilder(Context ctx,Uri InkStartImg,Uri InkTargetImg){
+            super(ctx,InkSplatActivity.class);
             this.InkStartImg = InkStartImg;
             this.InkTargetImg = InkTargetImg;
             this.ctx = ctx;
