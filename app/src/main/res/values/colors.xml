@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#393937</color>
-    <color name="colorPrimaryDark">#242422</color>
-    <color name="colorAccent">#DCE3E1</color>
+    <color name="colorPrimary">#4A148C</color>
+    <color name="colorPrimaryDark">#3B1070</color>
+    <color name="colorAccent">#8524FC</color>
+    <color name="grayBottom">#11000000</color>
     <color name="successGreen">#59BA55</color>
     <color name="cancelRed">#B2312A</color>
     <color name="buttonTint">#464643</color>
