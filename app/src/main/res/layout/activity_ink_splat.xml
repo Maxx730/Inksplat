@@ -85,48 +85,15 @@
                                 android:layout_width="70dp"
                                 android:layout_height="match_parent"
                                 android:alpha="1"
-                                android:background="@drawable/swatch_option">
+                                android:background="@drawable/swatch_option"
+                                android:padding="20dp">
 
-                            </RelativeLayout>
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@color/blueshade1">
 
-                            <RelativeLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:alpha="1"
-                                android:background="@drawable/swatch_option">
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:alpha="1"
-                                android:background="@drawable/swatch_option">
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:alpha="1"
-                                android:background="@drawable/swatch_option">
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:alpha="1"
-                                android:background="@drawable/swatch_option">
-
-                            </RelativeLayout>
-
-                            <RelativeLayout
-                                android:layout_width="70dp"
-                                android:layout_height="match_parent"
-                                android:alpha="1"
-                                android:background="@drawable/swatch_option">
-
+                                </RelativeLayout>
                             </RelativeLayout>
 
                         </LinearLayout>
@@ -173,7 +140,7 @@
 
                 </LinearLayout>
 
-                <RelativeLayout
+                <LinearLayout
                     android:id="@+id/option_frame"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -183,30 +150,27 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
                         android:layout_alignParentRight="true"
-                        android:layout_marginLeft="5dp"
-                        android:padding="15dp"
+                        android:padding="30dp"
                         app:srcCompat="@drawable/paint_size_icon" />
 
                     <SeekBar
                         android:id="@+id/brush_seekbar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:max="100"
                         android:min="5"
-                        android:padding="22dp"
-                        android:paddingVertical="5dp"
                         android:progress="25"
                         android:scrollIndicators="top" />
 
                     <ImageView
                         android:id="@+id/imageView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:padding="20dp"
+                        android:layout_width="70dp"
+                        android:layout_height="match_parent"
+                        android:padding="25dp"
                         app:srcCompat="@drawable/paint_size_icon" />
 
                     <ImageButton
@@ -220,7 +184,7 @@
                         android:visibility="gone"
                         app:srcCompat="@drawable/icon_right" />
 
-                </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
@@ -234,7 +198,7 @@
             android:theme="?attr/actionBarTheme" />
 
         <ImageButton
-            android:id="@+id/paintbrush_back3"
+            android:id="@+id/activityCancel"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentBottom="false"
@@ -246,7 +210,7 @@
             app:srcCompat="@drawable/icon_cancel" />
 
         <ImageButton
-            android:id="@+id/paintbrush_back2"
+            android:id="@+id/activityCheck"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_alignParentBottom="false"

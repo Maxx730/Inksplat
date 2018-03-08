@@ -40,10 +40,9 @@ public class InkSplatActivity extends AppCompatActivity {
     private ImageButton brush_up,brush_down,check_btn,can_btn,stroke_back;
     private Intent intent;
     private InkCanvas canvas;
-    private float size = 5f;
+    private float size = 25f;
     private SeekBar brush_size_seeker;
     private Animation slide_up,slide_down;
-    private LinearLayout check_forward;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +122,10 @@ public class InkSplatActivity extends AppCompatActivity {
     private void ImplementClickEvents(){
         brush_size_seeker = (SeekBar) findViewById(R.id.brush_seekbar);
         stroke_back = (ImageButton) findViewById(R.id.paintbrush_back);
-        check_forward = (LinearLayout) findViewById(R.id.check_slider);
         slide_up = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_up);
         slide_down = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_down);
+        check_btn = (ImageButton) findViewById(R.id.activityCheck);
+        can_btn = (ImageButton) findViewById(R.id.activityCancel);
 
         stroke_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,8 +133,6 @@ public class InkSplatActivity extends AppCompatActivity {
                 if(canvas.paths.size() == 1){
                     stroke_back.setClickable(false);
                     stroke_back.setAlpha(.5f);
-                    check_forward.startAnimation(slide_down);
-                    check_forward.setVisibility(View.GONE);
                 }
 
                 if(canvas.paths.size() > 0){
@@ -241,8 +239,6 @@ public class InkSplatActivity extends AppCompatActivity {
                     if(paths.size() == 1){
                         stroke_back.setClickable(true);
                         stroke_back.setAlpha(1f);
-                        check_forward.startAnimation(slide_up);
-                        check_forward.setVisibility(View.VISIBLE);
                     }
 
                     p.reset();
