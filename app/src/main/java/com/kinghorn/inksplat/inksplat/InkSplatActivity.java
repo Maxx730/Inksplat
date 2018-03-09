@@ -24,9 +24,11 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -37,12 +39,15 @@ public class InkSplatActivity extends AppCompatActivity {
 
     private Paint color,size_indicator;
     private Bitmap chosenImage,outputImage;
-    private ImageButton brush_up,brush_down,check_btn,can_btn,stroke_back;
+    private ImageButton check_btn,can_btn,stroke_back,ac_check,ac_cancel;
     private Intent intent;
     private InkCanvas canvas;
     private float size = 25f;
     private SeekBar brush_size_seeker;
     private Animation slide_up,slide_down;
+    private ImageView eraser_toggle;
+    private boolean ERASER_MODE = false;
+    private TextView back_counter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,16 +88,7 @@ public class InkSplatActivity extends AppCompatActivity {
         l.addView(canvas);
 
         ImplementColorSwatches();
-        ImplementBrushSizing();
         ImplementClickEvents();
-    }
-
-    //Sets the click events for sizing the brush up and down.
-    private void ImplementBrushSizing(){
-        brush_up = (ImageButton) findViewById(R.id.brush_size_up);
-        brush_down = (ImageButton) findViewById(R.id.brush_size_down);
-
-
     }
 
     //Loops through the color swatch list and adds click events for each color swatch.
@@ -100,19 +96,21 @@ public class InkSplatActivity extends AppCompatActivity {
         final ViewGroup swatchList = findViewById(R.id.swatch_list);
 
         for(int i = 0;i < swatchList.getChildCount();i++){
-            final View v = swatchList.getChildAt(i);
-            v.setOnClickListener(new View.OnClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            final RelativeLayout v = (RelativeLayout) swatchList.getChildAt(i);
+            final View arraow = v.getChildAt(1);
+
+            v.getChildAt(0).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //Here we want to grab the color of the swatch, make all the swatches transparent and make this particular one not.
                     for(int k = 0;k < swatchList.getChildCount();k++){
-                        swatchList.getChildAt(k).setAlpha(.2f);
+                        final RelativeLayout d = (RelativeLayout) swatchList.getChildAt(k);
+                        d.getChildAt(1).setVisibility(View.INVISIBLE);
                     }
 
-                    color.setColor(v.getBackgroundTintList().getDefaultColor());
+                    color.setColor(v.getChildAt(0).getBackgroundTintList().getDefaultColor());
                     canvas.invalidate();
-                    v.setAlpha(1);
+
+                    arraow.setVisibility(View.VISIBLE);
                 }
             });
         }
@@ -126,17 +124,45 @@ public class InkSplatActivity extends AppCompatActivity {
         slide_down = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_down);
         check_btn = (ImageButton) findViewById(R.id.activityCheck);
         can_btn = (ImageButton) findViewById(R.id.activityCancel);
+        eraser_toggle = (ImageView) findViewById(R.id.EraserModeToggle);
+        ac_check = (ImageButton) findViewById(R.id.activityCheck);
+        ac_cancel = (ImageButton) findViewById(R.id.activityCancel);
+        back_counter = (TextView) findViewById(R.id.backCounter);
+
+        ac_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        eraser_toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(ERASER_MODE){
+                    ERASER_MODE = false;
+                    eraser_toggle.setAlpha(.2f);
+                    canvas.invalidate();
+                }else{
+                    ERASER_MODE = true;
+                    eraser_toggle.setAlpha(.7f);
+                    canvas.invalidate();
+                }
+            }
+        });
 
         stroke_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(canvas.paths.size() == 1){
                     stroke_back.setClickable(false);
-                    stroke_back.setAlpha(.5f);
+                    back_counter.setText("0");
+                    stroke_back.setAlpha(1f);
                 }
 
                 if(canvas.paths.size() > 0){
                     canvas.paths.remove(canvas.paths.size() - 1);
+                    back_counter.setText(String.valueOf(canvas.paths.size()));
                     canvas.invalidate();
                 }
             }
@@ -183,11 +209,19 @@ public class InkSplatActivity extends AppCompatActivity {
     //Canvas that we will use to draw the image onto.
     public class InkCanvas extends View{
 
+        private Paint ep;
+        private float eraserx = 0,erasery = 0;
         private InkPath p = new InkPath(Color.BLACK);
         private ArrayList<InkPath> paths;
 
         public InkCanvas(Context c){
             super(c);
+
+            ep = new Paint();
+            ep.setColor(Color.WHITE);
+            ep.setStyle(Paint.Style.STROKE);
+            ep.setStrokeWidth(5);
+            ep.setAlpha(75);
 
             paths = new ArrayList<InkPath>();
 
@@ -207,8 +241,11 @@ public class InkSplatActivity extends AppCompatActivity {
             for(InkPath path:paths){
                 canvas.drawPath(path,path.getPaint());
             }
-
             canvas.drawPath(p,color);
+
+            if(ERASER_MODE){
+                canvas.drawCircle(eraserx,erasery,brush_size_seeker.getProgress(),ep);
+            }
 
             //Draw the brush size indicator over everything else.
             //canvas.drawOval(new RectF((getWidth() - size) / 2,(getHeight() - size) / 2,((getWidth() - 100) / 2) + size,((getHeight() - 100) / 2) + size),size_indicator);
@@ -227,24 +264,42 @@ public class InkSplatActivity extends AppCompatActivity {
         public boolean onTouchEvent(MotionEvent event) {
             switch(event.getAction()){
                 case MotionEvent.ACTION_DOWN:
-                    p.moveTo(event.getX(),event.getY());
+                    if(ERASER_MODE){
+                        eraserx = event.getX();
+                        erasery = event.getY();
+                    }else{
+                        p.moveTo(event.getX(),event.getY());
+                    }
                     break;
                 case MotionEvent.ACTION_UP:
-                    p.moveTo(event.getX(),event.getY());
+                    if(ERASER_MODE){
+                        eraserx = event.getX();
+                        erasery = event.getY();
+                    }else{
+                        p.moveTo(event.getX(),event.getY());
 
-                    InkPath newPath = new InkPath(color.getColor());
-                    newPath.set(p);
-                    paths.add(newPath);
+                        InkPath newPath = new InkPath(color.getColor());
+                        newPath.set(p);
+                        paths.add(newPath);
 
-                    if(paths.size() == 1){
-                        stroke_back.setClickable(true);
-                        stroke_back.setAlpha(1f);
+                        if(paths.size() == 1){
+                            stroke_back.setClickable(true);
+                            stroke_back.setAlpha(1f);
+                        }
+                        
+                        back_counter.setText(String.valueOf(canvas.paths.size()));
+
+                        p.reset();
                     }
-
-                    p.reset();
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    p.lineTo(event.getX(),event.getY());
+                    if(ERASER_MODE){
+                        eraserx = event.getX();
+                        erasery = event.getY();
+                    }else{
+                        p.lineTo(event.getX(),event.getY());
+                    }
+
                     break;
             }
             invalidate();
@@ -255,6 +310,13 @@ public class InkSplatActivity extends AppCompatActivity {
         //to the image.
         public Bitmap CropPaintedImage(){
             return Bitmap.createBitmap(getDrawingCache(),(getWidth() - GetScaledImage().getWidth()) / 2,(getHeight() - GetScaledImage().getHeight()) / 2,((getWidth() - GetScaledImage().getWidth()) / 2) + GetScaledImage().getWidth(),((getHeight() - GetScaledImage().getHeight()) / 2)+GetScaledImage().getHeight());
+        }
+
+        private Bitmap ConvertPaintToImage(){
+            for(InkPath p:paths){
+
+            }
+            return null;
         }
     }
 
