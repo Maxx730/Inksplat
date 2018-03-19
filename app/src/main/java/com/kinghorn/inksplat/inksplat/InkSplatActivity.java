@@ -51,6 +51,7 @@ public class InkSplatActivity extends AppCompatActivity {
     private ImageView eraser_toggle;
     private boolean ERASER_MODE = false;
     private TextView back_counter;
+    private int INKSPLAT_GET_RESULT = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,7 +129,6 @@ public class InkSplatActivity extends AppCompatActivity {
             fil.createNewFile();
             FileOutputStream fos = new FileOutputStream(fil);
             temp_img.compress(Bitmap.CompressFormat.JPEG,10,fos);
-            System.out.println(fil.getAbsolutePath());
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
@@ -169,6 +169,7 @@ public class InkSplatActivity extends AppCompatActivity {
                 //Start the intent and save the temp file to the given directory.
                 Intent r = new Intent();
                 r.putExtra("InksplatFile",SavePainting());
+                r.putExtra("requestCode",INKSPLAT_GET_RESULT);
                 setResult(RESULT_OK,r);
                 finish();
             }
