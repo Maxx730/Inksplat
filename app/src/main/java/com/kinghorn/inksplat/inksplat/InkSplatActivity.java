@@ -31,6 +31,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,6 +119,28 @@ public class InkSplatActivity extends AppCompatActivity {
         }
     }
 
+    //Saves the painting as a temporary file that will be opened after the activity if finished.
+    private String SavePainting(){
+        String file_name = "inksplat_tmp.jpg";
+        Bitmap temp_img = canvas.getDrawingCache();
+        File fil = new File(getApplicationContext().getCacheDir(),file_name);
+        try {
+            fil.createNewFile();
+            FileOutputStream fos = new FileOutputStream(fil);
+            temp_img.compress(Bitmap.CompressFormat.JPEG,10,fos);
+            System.out.println(fil.getAbsolutePath());
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //Check for the image and then return it.
+        return fil.getAbsolutePath();
+    }
+
     //Initializes the click events for all our buttons.
     private void ImplementClickEvents(){
         brush_size_seeker = (SeekBar) findViewById(R.id.brush_seekbar);
@@ -132,6 +157,19 @@ public class InkSplatActivity extends AppCompatActivity {
         ac_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Here we will want to go back to the last activity that started this one.
+                finish();
+            }
+        });
+        ac_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Apply the paint to the actual image and send it back to the original activity.
+
+                //Start the intent and save the temp file to the given directory.
+                Intent r = new Intent();
+                r.putExtra("InksplatFile",SavePainting());
+                setResult(RESULT_OK,r);
                 finish();
             }
         });
@@ -286,7 +324,7 @@ public class InkSplatActivity extends AppCompatActivity {
                             stroke_back.setClickable(true);
                             stroke_back.setAlpha(1f);
                         }
-                        
+
                         back_counter.setText(String.valueOf(canvas.paths.size()));
 
                         p.reset();
@@ -325,19 +363,21 @@ public class InkSplatActivity extends AppCompatActivity {
         private final Uri InkStartImg,InkTargetImg;
         private Context ctx;
         private Class<?> ac_class;
+        private Activity ReturnAc;
 
-        public InksplatBuilder(Context ctx,Uri InkStartImg,Uri InkTargetImg){
+        public InksplatBuilder(Context ctx,Uri InkStartImg,Uri InkTargetImg,Activity ReturnActivity){
             super(ctx,InkSplatActivity.class);
             this.InkStartImg = InkStartImg;
             this.InkTargetImg = InkTargetImg;
             this.ctx = ctx;
+            this.ReturnAc = ReturnActivity;
         }
 
         //Starts the new intent and launches the activity.
         //Requires the activity we want to go back to.
-        public void start(){
+        public Intent build(){
             this.putExtra("InkImgChoice",this.InkStartImg);
-            this.ctx.startActivity(this);
+            return this;
         }
     }
 }
